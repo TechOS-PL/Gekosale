@@ -57,16 +57,27 @@ class File
 
 	public function delete ($name)
 	{
-		foreach (glob($this->path . strtolower($name) . '*') as $key => $fn){
-			@unlink($fn);
+		$dir_files = glob($this->path . strtolower($name) . '*');
+
+		$count_glob = count($dir_files);
+		for($i=0; $i<$count_glob; $i++){
+			if (is_file($dir_files[$i])){
+				@unlink($dir_files[$i]);
+			}
 		}
 
 	}
 
 	public function deleteAll ()
 	{
-		foreach (glob($this->path . '*' . $this->suffix) as $fn){
-			@unlink($fn);
+
+		$dir_files = glob($this->path . '*' . $this->suffix);
+
+		$count_glob = count($dir_files);
+		for($i=0; $i<$count_glob; $i++){
+			if (is_file($dir_files[$i])){
+				@unlink($dir_files[$i]);
+			}
 		}
 
 	}
